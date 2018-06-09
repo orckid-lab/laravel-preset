@@ -1,0 +1,27 @@
+{
+  "extends": "standard",
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "jquery": true
+  },
+  "globals": {
+    "axios": true,
+    "Vue": true,
+    "StripeCheckout": true,
+    "cleanObject": true
+  },
+  "rules": {
+    "space-before-function-paren": 0,
+    "no-alert": "error",
+    "semi": [
+      "error",
+      "always"
+    ]
+  },
+  "plugins": [
+    "html",
+    "json"
+  ]
+}

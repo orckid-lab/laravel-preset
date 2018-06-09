@@ -1,0 +1,25 @@
+{
+    "name": "orckid-lab/laravel-preset",
+    "description": "Orckid Lab Laravel preset",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "JoeyJ",
+            "email": "joey@orckid.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "OrckidLab\\LaravelPreset\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "OrckidLab\\LaravelPreset\\ServiceProvider"
+            ]
+        }
+    }
+}
