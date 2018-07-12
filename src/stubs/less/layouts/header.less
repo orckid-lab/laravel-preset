@@ -1,0 +1,26 @@
+#main-header {
+  @scale: 80px;
+  &:extend(.fixed, .full-width, .default-transition);
+  will-change: contents;
+  padding: 15px 0;
+  top: 0;
+  left: 0;
+  z-index: 4;
+  .logo {
+    width: @scale;
+    figure {
+      &:extend(.no-margin, .flex-center);
+      background: rgba(255, 255, 255, 0.10);
+      width: @scale;
+      height: @scale;
+      border-radius: 100%;
+    }
+    svg {
+      &:extend(.default-transition);
+      .path {
+        fill: white;
+        opacity: 1;
+      }
+    }
+  }
+}

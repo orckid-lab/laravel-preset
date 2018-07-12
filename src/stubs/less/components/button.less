@@ -1,0 +1,12 @@
+.ui-button, .ui-icon, .ui-icon-button, .ui-button:before {
+  &:extend(.default-transition);
+}
+
+.ui-button {
+  font: 18px @default-font;
+  border-radius: 30px;
+  height: 42px;
+  &.is-disabled {
+    &:extend(.disable-pointer);
+  }
+}

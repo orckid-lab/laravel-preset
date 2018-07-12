@@ -1,0 +1,182 @@
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons&.css');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900&.css');
+
+@default-font: 'Source Sans Pro', @native-font;
+@icons-font: 'Material Icons';
+
+body {
+  font: 24px @default-font;
+  font-weight: 400;
+  color: @primary-dark;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  &.with-icon {
+    &:extend(.flex);
+    i {
+      margin: 9px 12px 0 0;
+    }
+  }
+}
+
+h1 {
+  font-size: 72px;
+  font-weight: 600;
+  margin: 0 0 40px;
+}
+
+h2 {
+  font-size: 32px;
+  margin: 0 0 36px;
+}
+
+h3 {
+  font-size: 32px;
+  margin: 0 0 36px;
+}
+
+h4 {
+  font-size: 24px;
+  margin: 0 0 22px;
+}
+
+h5 {
+  font-size: 14px;
+  margin: 0 0 22px;
+}
+
+h6 {
+  font-size: 16px;
+  margin: 0 0 15px;
+}
+
+p {
+  font-size: 20px;
+  margin: 0 0 36px;
+  line-height: 32px;
+  &:empty {
+    &:extend(.hide);
+  }
+}
+
+ul {
+  li {
+    font-size: 16px;
+  }
+}
+
+a {
+  color: @primary-dark;
+  &:hover {
+    color: @secondary-dark;
+  }
+}
+
+blockquote {
+  border-left: 5px solid @primary-dark;
+  margin: 0 0 25px;
+  padding: 0 25px;
+  p {
+    display: inline;
+    font-style: italic !important;
+  }
+}
+
+q {
+  &:extend(.float-left-full, .flex);
+  font-size: 30px;
+  margin: 0 0 25px;
+  flex-direction: column;
+  &:before, &:after {
+    &:extend(.hide);
+  }
+  p {
+    font-size: 32px;
+    line-height: 42px;
+    strong {
+      font-size: 100px;
+    }
+  }
+}
+
+hr {
+  &:extend(.float-left-full);
+  margin: 25px 0;
+  background: @primary-dark;
+  height: 5px;
+  border: none;
+  opacity: .1;
+  &.spacer {
+    background: none;
+  }
+  + h3, + h4 {
+    margin-top: 30px;
+  }
+}
+
+address {
+  font-style: normal;
+  font-size: 14px;
+}
+
+.list {
+  &:extend(.float-left-full);
+  ul, ol {
+    &:extend(.float-left-full);
+  }
+  ol {
+    list-style-position: inside;
+  }
+  li {
+    &:extend(.relative);
+    margin: 0 0 4px;
+    font-size: 16px;
+    line-height: 26px;
+  }
+  ul {
+    margin: 0 0 15px;
+    &.with-icon {
+      li {
+        &:extend(.flex);
+        font-size: 14px;
+        align-items: start;
+        > i.material-icons, .ui-icon, .svg-icon, > span {
+          &:extend(.inline-block);
+          margin: 0 14px 0 0;
+        }
+        > span:first-child {
+          .ui-icon {
+            margin: 0;
+          }
+        }
+        .svg-icon {
+          width: 23px;
+          height: 33px;
+        }
+        .group-em {
+          &:extend(.block);
+          font-style: normal;
+        }
+        &:last-child {
+          margin-bottom: 0;
+        }
+        span a {
+          &:extend(.break-out);
+        }
+      }
+      &.no-bullet {
+        margin: 0;
+        li {
+          font-size: 14px;
+          margin: 0 0 6px;
+          &:before {
+            &:extend(.hide);
+          }
+          &:last-child {
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+// IE 11
+@media all and (-ms-high-contrast: none) {
+
+	.background-fix {
+		background-position: top center;
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+
+	.img-responsive {
+		width: 100%;
+	}
+
+	.form {
+		.select {
+			&:after {
+				display: none;
+			}
+		}
+	}
+
+}
+
+// EDGE
+@supports (-ms-ime-align:auto) {
+
+	.background-fix {
+		background-position: top center;
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+
+}

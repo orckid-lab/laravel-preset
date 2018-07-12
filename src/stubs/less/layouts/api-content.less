@@ -1,0 +1,42 @@
+#main-content .api-content {
+  &:extend(.float-left-full);
+  margin: 0 0 25px;
+  .wp-video {
+    &:extend(.block);
+    width: 100% !important;
+    margin: 0 0 25px;
+  }
+  p, li {
+    font-size: 20px;
+  }
+  a {
+    text-decoration: none;
+  }
+  ul {
+    list-style: disc outside none;
+  }
+  ol, ul {
+    float: left;
+    width : 100%;
+    padding-left: 20px;
+    &:extend(.block);
+    + h2, + h3,  + h4, + h5, + a {
+      margin-top: 20px;
+    }
+    li {
+      width: 100%;
+      margin: 0 0 14px;
+      a {
+        color: @primary-dark !important;
+        font-family: @default-font;
+      }
+      ul {
+        padding-left: 40px;
+        margin-top: 16px;
+      }
+    }
+  }
+  .row > br, .row [class*=col] + br {
+      &:extend(.hide);
+  }
+}

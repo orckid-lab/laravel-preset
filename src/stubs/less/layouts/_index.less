@@ -1,0 +1,35 @@
+@import 'navigation';
+@import 'header';
+@import 'footer';
+@import 'api-content';
+
+.shadow {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#main-content {
+  section {
+    padding: 65px 0;
+    &:first-child {
+      margin: 110px 0 0;
+      &.hero {
+        padding: 0;
+        margin: 0;
+      }
+    }
+    &.last {
+      padding-bottom: 0;
+    }
+  }
+}
+
+.content {
+  &.centered {
+    h1, h2, h3, h4, h5, p, ul, address {
+      &:extend(.align-center);
+    }
+  }
+  &.compact {
+    padding: 0 12%;
+  }
+}
