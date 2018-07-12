@@ -32,6 +32,7 @@ class Preset extends LaravelPreset
         // install csv
         // install guzzle
         // install collective
+        // php artisan preset orckid-lab
 
     }
 
