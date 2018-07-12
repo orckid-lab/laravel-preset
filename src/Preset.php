@@ -54,11 +54,18 @@ class Preset extends LaravelPreset
                 "eslint-plugin-html" => "^4.0.1",
                 "eslint-plugin-import" => "^2.9.0",
                 "eslint-plugin-json" => "^1.2.0",
+                "core-js" => "^2.5.3",
                 "jquery" => "^3.3.1",
                 "less" => "^2.7.3",
                 "less-loader" => "^4.0.6",
                 "standard" => "^10.0.3",
+                "keen-ui" => "^1.0.1",
+                "vue-flickity" => "^1.0.9",
+                "flickity-bg-lazyload" => "^1.0.0",
+                "flickity-fullscreen" => "^1.1.0",
+                "vue-scrollto" => "^2.9.0",
                 "reset" => "git+https://github.com/orckid-lab/reset.git",
+                "animate.css" => "^3.6.1"
             ] + Arr::except($packages, [
                 'lodash',
                 'popper.js',
