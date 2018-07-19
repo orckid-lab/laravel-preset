@@ -4,6 +4,7 @@
 @initial-font: 18px/24px @default-font;
 
 @import 'radio';
+@import 'select';
 
 .form {
   &:extend(.float-left-full);
@@ -54,31 +55,10 @@
     min-height: 108px;
     font: @initial-font;
   }
-  .select {
-    &:extend(.relative, .no-padding);
-    select {
-      &:extend(.enable-pointer);
-      -webkit-appearance: none;
-      -moz-appearance: none;
-    }
-    &:after {
-      &:extend(.disable-pointer, .absolute);
-      content: ' ';
-      border-color: @primary-dark transparent transparent;
-      border-style: solid;
-      border-width: 8px 5px 0;
-      height: 0;
-      width: 0;
-      right: 12px;
-      top: 16px;
-    }
-  }
-
   .help-block {
     &:extend(.float-left-full);
     color: @warning;
     font-size: 15px;
     margin: 6px 0;
   }
-
 }

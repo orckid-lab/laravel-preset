@@ -17,10 +17,12 @@
     }
     svg {
       &:extend(.default-transition);
-      .path {
-        fill: white;
-        opacity: 1;
-      }
     }
+  }
+  #main-navigation {
+    width: calc(~'100% - @{scale}') !important;
+  }
+  &.scrolled {
+
   }
 }

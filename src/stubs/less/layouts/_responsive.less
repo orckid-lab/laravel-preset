@@ -8,9 +8,20 @@
 
 @media only screen and (max-width: 1200px) {
 
+  .content {
+    &.compact {
+      padding: 0 2%;
+    }
+  }
+
 }
 
 @media only screen and (max-width: 1024px) {
+
+  .ui-modal .ui-modal__container {
+    max-width: 90%;
+    width: 100%;
+  }
 
 }
 
@@ -19,6 +30,20 @@
 }
 
 @media only screen and (max-width: 680px) {
+
+  #global .button-handler {
+    &.mobile {
+      a, button {
+        width: 100% !important;
+      }
+      a {
+        margin: 0 !important;
+      }
+      button {
+        margin: 0 0 15px !important;
+      }
+    }
+  }
 
 }
 

@@ -1,0 +1,49 @@
+.pagination {
+	&:extend(.float-left-full, .align-left);
+	margin: 30px 0 0;
+	padding: 20px 0 0;
+	border-top: 1px dashed #C5C5C5;
+	font-size: 17px;
+	font-weight: 700;
+	.hover {
+		background: @secondary-dark;
+		color: white;
+	}
+	li {
+		&:extend(.inline-block);
+		float: none;
+		a {
+			&:extend(.no-border, .no-background);
+			color: @quaternary-dark;
+			&:hover {
+
+			}
+		}
+		a, span {
+			&:extend(.flex-center);
+			margin: 0 1px;
+			border-radius: 50%;
+			width: 20px;
+			height: 20px;
+		}
+		&.active {
+			span {
+				.hover;
+			}
+		}
+		a {
+			&:hover {
+				.hover;
+			}
+		}
+		&.disabled {
+			&:extend(.disable-pointer);
+			opacity: .4;
+		}
+		&:first-child {
+			span, a {
+				margin-left: 0;
+			}
+		}
+	}
+}

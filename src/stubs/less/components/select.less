@@ -1,0 +1,19 @@
+.select {
+  &:extend(.relative, .no-padding);
+  select {
+    &:extend(.enable-pointer);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+  &:after {
+    &:extend(.disable-pointer, .absolute);
+    content: ' ';
+    border-color: @primary-dark transparent transparent;
+    border-style: solid;
+    border-width: 8px 5px 0;
+    height: 0;
+    width: 0;
+    right: 12px;
+    top: 16px;
+  }
+}
