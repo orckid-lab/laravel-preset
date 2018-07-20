@@ -45,8 +45,9 @@ class Preset extends LaravelPreset
     protected static function updatePackageArray(array $packages)
     {
         return [
-                "browser-sync" => "^2.23.6",
-                "browser-sync-webpack-plugin" => "^2.2.2",
+                // commented browser sync to let npm-run-watch detect on its own which version is stable for watch/hot
+                //                "browser-sync" => "^2.23.6",
+                //                "browser-sync-webpack-plugin" => "^2.2.2",
                 "dotenv" => "latest",
                 "eslint" => "^4.18.1",
                 "eslint-friendly-formatter" => "^3.0.0",
