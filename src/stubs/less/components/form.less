@@ -11,10 +11,6 @@
   label, fieldset, input, textarea, .form-data, .select, .group {
     &:extend(.float-left-full);
   }
-  select, .ui-select {
-    &:extend(.float-left-auto);
-    width: 99.99% !important;
-  }
   fieldset {
     &:extend(.relative);
     margin: 0 0 28px;
@@ -55,7 +51,7 @@
     min-height: 108px;
     font: @initial-font;
   }
-  .help-block {
+  .error {
     &:extend(.float-left-full);
     color: @warning;
     font-size: 15px;

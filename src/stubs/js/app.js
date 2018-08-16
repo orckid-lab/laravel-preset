@@ -1,40 +1,24 @@
 import 'core-js';
+import Vue from 'vue';
 import vueScrollTo from 'vue-scrollto';
+import orckid from 'vue-helpers';
 import components from './components/_index';
 import pageEvents from './modules/page-events';
 
 require('./bootstrap');
 
-window.Vue = require('vue');
-Vue.use(require('keen-ui'));
+window.Vue = Vue;
 Vue.use(vueScrollTo);
+Vue.use(orckid);
 
 /* eslint-disable no-unused-vars */
 const app = new Vue({
-  el: '#app',
-  data() {
-    return {
-      mobileMenu: false
-    };
-  },
-  components,
-  mounted() {
-    pageEvents();
-  },
-  methods: {
-    openModal(ref) {
-      this.$refs[ref].open();
-      this.modals.push(ref);
+    el: '#app',
+    data: {},
+    components,
+    mounted () {
+        pageEvents();
     },
-    closeModal(ref) {
-      this.modals.splice(this.modals.indexOf(ref));
-      this.$refs[ref].close();
-    },
-    onModalClose(ref) {
-      this.modals.splice(this.modals.indexOf(ref));
-    },
-    openMobileMenu() {
-      this.mobileMenu = !this.mobileMenu;
+    methods: {
     }
-  }
 });

@@ -56,7 +56,7 @@ class Preset extends LaravelPreset
                 "eslint-plugin-json" => "^1.2.0",
                 "core-js" => "^2.5.3",
                 "jquery" => "^3.3.1",
-                "less" => "^2.7.3",
+                "less" => "^3.8.1",
                 "less-loader" => "^4.0.6",
                 "standard" => "^10.0.3",
                 "keen-ui" => "^1.0.1",
@@ -64,8 +64,9 @@ class Preset extends LaravelPreset
                 "flickity-bg-lazyload" => "^1.0.0",
                 "flickity-fullscreen" => "^1.1.0",
                 "vue-scrollto" => "^2.9.0",
-                "reset" => "git+https://github.com/orckid-lab/reset.git",
-                "animate.css" => "^3.6.1"
+                "animate.css" => "^3.6.1",
+                "vue-helpers" => "git@bitbucket.org:orckidlab/vue-helpers.git",
+                "frontend-less" => "git@bitbucket.org:orckidlab/frontend-less.git"
             ] + Arr::except($packages, [
                 'lodash',
                 'popper.js',
