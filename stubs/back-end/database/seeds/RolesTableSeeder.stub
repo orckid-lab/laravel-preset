@@ -1,0 +1,28 @@
+<?php
+
+use Illuminate\Database\Seeder;
+
+class RolesTableSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        $roles = [
+            'super-admin' => 'Super administrator',
+            'admin' => 'Administrator',
+        ];
+
+        foreach ($roles as $name => $label) {
+            \App\Role::create([
+                'name' => $name,
+                'label' => $label,
+            ]);
+
+            $this->command->info("Role $name created.");
+        }
+    }
+}

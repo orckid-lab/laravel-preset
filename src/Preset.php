@@ -3,9 +3,12 @@
 namespace OrckidLab\LaravelPreset;
 
 
+use Chumper\Zipper\Zipper;
+use Illuminate\Console\Command;
 use Illuminate\Foundation\Console\Presets\Preset as LaravelPreset;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
+use OrckidLab\LaravelPreset\Helpers\ComposerFile;
 
 /**
  * Class Preset
@@ -13,27 +16,35 @@ use Illuminate\Support\Facades\File;
  */
 class Preset extends LaravelPreset
 {
-    public static function install()
+    /**
+     * @var Command
+     */
+    protected $command;
+
+    /**
+     * @var ComposerFile
+     */
+    protected $composer;
+
+    /**
+     * Preset constructor.
+     * @param Command $command
+     */
+    public function __construct(Command $command)
     {
-        self::updatePackages();
-        self::updateScripts();
-        self::setEslintConfig();
-        self::updateWebpackConfiguration();
-        self::removeSassFolder();
-        self::setLessFolder();
-        self::updateJavascript();
-        self::updateGitIgnore();
+        $this->command = $command;
 
-        // configure webpack for HMR
-        // Amend TestCase
-        // Setup PHPUnit config
-        // make auth
-        // install spatie
-        // install csv
-        // install guzzle
-        // install collective
-        // php artisan preset orckid-lab
+        $this->composer = ComposerFile::init($command);
+    }
 
+    /**
+     * @param Command $command
+     */
+    public static function install(Command $command)
+    {
+        $command->comment('Preparing Orckid lab scaffolding...');
+
+        return (new static($command))->handle();
     }
 
     /**
@@ -99,6 +110,10 @@ class Preset extends LaravelPreset
         );
     }
 
+    /**
+     * @param array $scripts
+     * @return array
+     */
     protected static function updateScriptsArray(array $scripts)
     {
         return [
@@ -107,33 +122,51 @@ class Preset extends LaravelPreset
             ] + $scripts;
     }
 
+    /**
+     * Configure Eslint.
+     */
     public static function setEslintConfig()
     {
-        copy(__DIR__ . '/stubs/.eslintrc.json', base_path('.eslintrc.json'));
+        copy(__DIR__ . '/../stubs/front/.eslintrc.json', base_path('.eslintrc.json'));
     }
 
+    /**
+     * Update webpack configuration file.
+     */
     public static function updateWebpackConfiguration()
     {
-        copy(__DIR__ . '/stubs/webpack.mix.js', base_path('webpack.mix.js'));
+        copy(__DIR__ . '/../stubs/front/webpack.mix.js', base_path('webpack.mix.js'));
     }
 
+    /**
+     * Remove default Sass folder.
+     */
     public static function removeSassFolder()
     {
         File::deleteDirectory(resource_path('assets/sass'));
     }
 
+    /**
+     * Update Less folder.
+     */
     public static function setLessFolder()
     {
-        File::copyDirectory(__DIR__ . '/stubs/less', resource_path('assets/less'));
+        File::copyDirectory(__DIR__ . '/../stubs/front/less', resource_path('assets/less'));
     }
 
+    /**
+     * Update JavaScript file.
+     */
     public static function updateJavascript()
     {
         File::deleteDirectory(resource_path('assets/js'));
 
-        File::copyDirectory(__DIR__ . '/stubs/js', resource_path('assets/js'));
+        File::copyDirectory(__DIR__ . '/../stubs/front/js', resource_path('assets/js'));
     }
 
+    /**
+     * Update .gitignore file.
+     */
     public static function updateGitIgnore()
     {
         $path = base_path('.gitignore');
@@ -157,5 +190,189 @@ class Preset extends LaravelPreset
         }
 
         File::put($path, join("\n", $excludes));
+    }
+
+    /**
+     * Handle configuring Orckid preset.
+     */
+    protected function handle()
+    {
+        $scaffold = $this->command->confirm('Do you want to proceed with the scaffolding?');
+
+        if ($scaffold) {
+            $this->updatePackages();
+            $this->updateScripts();
+            $this->setEslintConfig();
+            $this->updateWebpackConfiguration();
+            $this->removeSassFolder();
+            $this->setLessFolder();
+            $this->updateJavascript();
+            $this->updateGitIgnore();
+            $this->scaffoldComplete();
+        }
+
+        $this->installNova();
+
+
+        // configure webpack for HMR
+        // Amend TestCase
+        // Setup PHPUnit config
+        // make auth
+        // install csv
+        // install guzzle
+        // install collective
+        // php artisan preset orckid-lab
+    }
+
+    /**
+     * Notify scaffold completed.
+     */
+    protected function scaffoldComplete()
+    {
+        $this->command->info('Orckid Lab scaffolding installed successfully.');
+
+        $this->command->comment('Please run "npm install && npm run dev" to compile your fresh scaffolding.');
+    }
+
+    /**
+     * Install Nova license.
+     *
+     * @throws \Exception
+     */
+    protected function installNova()
+    {
+        $novaPath = base_path('nova');
+
+        $this->command->warn('To install nova, you need to ensure the zip file is ready at ' . $novaPath);
+
+        $nova = $this->command->confirm('Do you want to install nova?');
+
+        if (!$nova) {
+            return;
+        }
+
+        $this->extractNova($novaPath);
+
+        $this->addNovaDependency();
+
+        $this->addRolesAndPermissionsDependency();
+
+        $this->setDatabaseStubs();
+
+        $this->command->warn('Copying Application and Nova stubs...');
+
+        $appStubs = [
+            'User',
+            'Role',
+            'Permission',
+        ];
+
+        foreach ($appStubs as $stub) {
+            File::delete(base_path("app/$stub.php"));
+
+            File::delete(base_path("app/Nova/$stub.php"));
+
+            File::copy(__DIR__ . "/../stubs/back-end/app/$stub.stub", base_path("app/$stub.php"));
+
+            File::copy(__DIR__ . "/../stubs/back-end/app/Nova/$stub.stub", base_path("app/Nova/$stub.php"));
+        }
+
+        $this->command->info('Copy completed.');
+
+        $this->command->info('Run composer update && php artisan migrate --seed');
+    }
+
+    /**
+     * Extract Nova license.
+     *
+     * @param $novaPath
+     * @throws \Exception
+     */
+    protected function extractNova($novaPath)
+    {
+        $zipper = new Zipper;
+
+        $licensePath = File::files($novaPath)[0];
+
+        $this->command->warn('Extracting...');
+
+        $content = $zipper->make($licensePath)->listFiles();
+
+        $root = preg_replace('/^(laravel.*?)\/.*/', '$1', $content[0]);
+
+        $zipper->folder($root)->extractTo('nova');
+
+        $this->command->info('Extract completed');
+    }
+
+    /**
+     * Add laravel/nova to project dependencies.
+     */
+    protected function addNovaDependency()
+    {
+        $this->composer->addDependencies([
+            'laravel/nova' => '*',
+        ]);
+
+        $this->composer->add([
+            'repositories' => [
+                'type' => 'path',
+                'url' => './nova',
+            ],
+        ]);
+
+        $this->composer->update();
+
+        $this->command->warn('Updating dependencies...');
+
+        exec('composer update');
+
+        $this->command->warn('Running nova:install.');
+
+        $this->command->info(exec('php artisan nova:install'));
+
+        $this->command->info('Nova installation complete.');
+    }
+
+    /**
+     * Update database stubs.
+     */
+    protected function setDatabaseStubs(): void
+    {
+        $this->command->warn('Copying database stubs...');
+
+        $paths = [
+            'database/factories',
+            'database/migrations',
+            'database/seeds',
+        ];
+
+        foreach ($paths as $path) {
+            File::deleteDirectory(base_path($path));
+
+            File::copyDirectory(__DIR__ . '/../stubs/back-end/' . $path, base_path($path));
+
+            $files = File::files(base_path($path));
+
+            foreach ($files as $file) {
+                File::move($file, str_replace('.stub', '.php', $file));
+            }
+
+            $this->command->info("$path updated.");
+        }
+    }
+
+    /**
+     * Add Roles and Permissions dependency to project.
+     */
+    protected function addRolesAndPermissionsDependency(): void
+    {
+        $this->command->warn('Adding role and permission module to dependencies...');
+
+        $this->composer->addDependencies([
+            'spatie/laravel-permission' => '^2.16',
+        ]);
+
+        $this->composer->update();
     }
 }

@@ -9,7 +9,9 @@
         }
     ],
     "minimum-stability": "stable",
-    "require": {},
+    "require": {
+        "chumper/zipper": "1.0.x"
+    },
     "autoload": {
         "psr-4": {
             "OrckidLab\\LaravelPreset\\": "src/"
