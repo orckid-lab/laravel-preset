@@ -12,10 +12,26 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         $orckid = [
-            'joey@orckid.com',
-            'ash@orckid.com',
-            'ashley@orckid.com',
-            'd.allen@orckid.com',
+            [
+                'first_name' => 'Joey',
+                'last_name' => '',
+                'email' => 'joey@orckid.com',
+            ],
+            [
+                'first_name' => 'Ash',
+                'last_name' => 'Joory',
+                'email' => 'ash@orckid.com',
+            ],
+            [
+                'first_name' => 'Ashley',
+                'last_name' => 'Lutchumun',
+                'email' => 'ashley@orckid.com',
+            ],
+            [
+                'first_name' => 'Daniel',
+                'last_name' => 'Allen',
+                'email' => 'd.allen@orckid.com',
+            ],
         ];
 
         foreach ($orckid as $user) {
