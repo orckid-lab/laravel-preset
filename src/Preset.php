@@ -211,7 +211,7 @@ class Preset extends LaravelPreset
             $this->scaffoldComplete();
         }
 
-        $this->installNova();
+//        $this->installNova();
 
 
         // configure webpack for HMR
